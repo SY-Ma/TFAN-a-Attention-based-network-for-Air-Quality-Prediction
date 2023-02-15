@@ -33,3 +33,46 @@ the Architecture of TFAN is as follow:
 - The comparison of pollutants concentration prediction precision of various model please see in paper
 - The general fit of TFAN on six pollutants which be part of the same sample from test dataset. is as follow:
 ![Error!](images/line%20result%203.png)
+
+## Demo
+```
+import torch
+from data_process.data_processer import DataProcesser    # Data preprocessing and build dataset
+from utils.random_seed import setup_seed                 # set random seed
+from utils.early_stop import Eearly_stop                 # early stop mechinism
+from torch.utils.data import DataLoader
+import numpy as np
+
+feature_index = {'PM2.5': 0, 'PM10': 1, 'NO2': 2, 'CO': 3, 'O3': 4, 'SO2': 5,
+                'TEMP': 6, 'PRES': 7, 'humidity': 8, 'wind_speed': 9, 'weather': 10, 'WD': 11}   # feature index
+DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+
+# 0. experiment settings
+seed_list = [30, ]                 # random seed list
+seq_len_list = [168, ]             # sequence length list 
+pred_len_list = [120, ]            # predicted length list
+save_model_situation = [12, 24, 48, 72, 96, 120, 144]    # if predicted length in this list, the save the net parameters to .pt file
+scalar = True                      # do zero-mean normalization or not
+BATCHSIZE = 32
+EPOCH = 10000
+test_interval = 1                  # test interval
+update_interval = 5                # interval to update loss curve
+target_feature = 'PM2.5'           # target feature name
+pred_target = feature_index[target_feature]
+# Hyper Parameters
+d_feature = 12                     # feature numbers
+d_embedding = 512                  # embedding demension
+d_hidden = 512                     # hidden length
+q = 8
+k = 8
+v = 8
+h = 64
+N = (2, 1)                         # (self attention encoder number, TF and FT attention encoder number)
+LR = 1e-4
+LR_weight = 1e-3
+pe = True                          # do position encoding or not
+mask = False                       # attention mask
+dropout = 0.05
+
+# 1. load data and build dataset
+```
