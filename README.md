@@ -102,90 +102,34 @@ optimizer = torch.optim.Adam([{'params': net.input_time.parameters()},
                                       {'params': net.output.weight, 'lr': LR_weight}], lr=LR)
 loss_func = torch.nn.L1Loss(reduction='sum')   
 
-# 3. train
-for epoch_idx in range(EPOCH):
-    net.train()
-    epoch_loss = 0.0
-    for x, x_stamp, y, y_stamp in train_dataloader:
-        optimizer.zero_grad()
-        x = x.float().to(DEVICE)
-        y = y.float()[:, :, pred_target].to(DEVICE)
-        x_stamp = x_stamp.float().to(DEVICE)
-        y_stamp = y_stamp.float().to(DEVICE)
+# 3. train and test
+[...]
+Please look the .py files for more details
+```
 
-        enc_in = x.to(DEVICE)
-        enc_in_stamp = x_stamp
-        padding = torch.zeros(x.shape[0], pred_len, x.shape[-1])
-        dec_in = torch.cat([x[:, -d_token:, :], padding.to(DEVICE)], dim=1)
-        dec_in_stamp = torch.cat([x_stamp[:, -d_token:, :], y_stamp], dim=1)
-
-        pre, scores = net(enc_in, enc_in_stamp, dec_in, dec_in_stamp, pred_target=pred_target)
-        loss = loss_func(pre, y)
-        epoch_loss += loss.item()
-        loss.backward()
-        optimizer.step()
-    train_loss = round(epoch_loss / train_dataloader.dataset.X.shape[0] / pred_len, 4)
-    print(f'EPOCH:{epoch_idx}\t\tTRAIN_LOSS:{round(train_loss, 4)}')
-
-    if epoch_idx % test_interval == 0:
-        val_loss, _ = test(dataloader=val_dataloader, test_net=net,
-                                           pred_len=pred_len, d_token=d_token,
-                                           pred_target=pred_target)
-        if early_stop(val_loss, net, type='e'):
-            val_loss, val_loss_rmse = test(dataloader=val_dataloader, test_net=early_stop.net,
-                                           pred_len=pred_len, d_token=d_token,
-                                           pred_target=pred_target)
-            test_loss, test_loss_rmse = test(dataloader=test_dataloader, test_net=early_stop.net,
-                                             pred_len=pred_len, d_token=d_token,
-                                             pred_target=pred_target)
-            train_loss, train_loss_rmse = test(dataloader=train_dataloader, test_net=early_stop.net,
-                                               pred_len=pred_len, d_token=d_token,
-                                               pred_target=pred_target)
-            print(f'accuracy on Train:\033[0;34mMAE={train_loss}/{train_loss_rmse}||'
-                  f'{round(train_loss*f_std, 4)}/{round(train_loss_rmse*f_std, 4)}\033[0m\r\n'
-                  f'accuracy on Val:\033[0;34mMAE={val_loss}/{val_loss_rmse}||'
-                  f'{round(val_loss*f_std, 4)}/{round(val_loss_rmse*f_std, 4)}\033[0m\r\n'
-                  f'accuracy on Test:\033[0;34mMAE={test_loss}/{test_loss_rmse}||'
-                  f'{round(test_loss*f_std, 4)}/{round(test_loss_rmse*f_std, 4)}\033[0m\r\n')
-            if save_model_flag:
-                result = (test_loss, test_loss_rmse, round(test_loss * f_std, 2), round(test_loss_rmse * f_std, 2))
-                early_stop.save_model(model_name='TFAN', target_feature=target_feature, seed=seed,
-                                      result=result, pred_len=pred_len, seq_len=seq_len,
-                                      state_dict={'d_feature': d_feature, 'seq_len': seq_len, 'd_embedding': d_embedding,
-                                                  'd_hidden': d_hidden, 'pred_len': pred_len, 'q': q, 'k': k, 'v': v, 'h': h,
-                                                  'N': N, 'pe': pe, 'mask': mask, 'dropout': dropout, 'pred_target': pred_target})
-            return test_loss, test_loss_rmse
-
-# 4. test
-test_net.eval()
-pres = []
-ys = []
-with torch.no_grad():
-    for x, x_stamp, y, y_stamp in dataloader:
-        x = x.float().to(DEVICE)
-        y = y.float()[:, :, pred_target].to(DEVICE)
-        x_stamp = x_stamp.float().to(DEVICE)
-        y_stamp = y_stamp.float().to(DEVICE)
-
-        enc_in = x
-        enc_in_stamp = x_stamp
-        padding = torch.zeros(x.shape[0], pred_len, x.shape[-1])
-        dec_in = torch.cat([x[:, -d_token:, :], padding.to(DEVICE)], dim=1)
-        dec_in_stamp = torch.cat([x_stamp[:, -d_token:, :], y_stamp], dim=1)
-
-        pre, scores = test_net(enc_in, enc_in_stamp, dec_in, dec_in_stamp, pred_target=pred_target)
-
-        pre = pre.reshape(-1, pre.shape[-1])
-        y = y.reshape(-1, y.shape[-1])
-        pres.append(pre.detach().cpu().numpy())
-        ys.append(y.detach().cpu().numpy())
-
-    pres = np.concatenate(pres, axis=0)
-    ys = np.concatenate(ys, axis=0)
-    loss = round(np.mean(np.abs(pres - ys)).item(), 4)
-    loss_rmse = round(np.sqrt(np.mean((pres - ys) ** 2).item()), 4)
-
-    if f_std is not None:
-        return loss, loss_rmse, round(loss * f_std, 4), round(loss_rmse * f_std, 4)
-    return loss, loss_rmse
+## Reference
+```bibtex
+@article{2021An,
+  title={An overview of air quality analysis by big data techniques: Monitoring, forecasting, and traceability},
+  author={ Huang, W.  and  Li, T.  and  Liu, J.  and  Xie, P.  and  Teng, F. },
+  journal={Information Fusion},
+  volume={75},
+  number={2},
+  year={2021},
+}
+@article{Zhongang2018Deep,
+  title={Deep Air Learning: Interpolation, Prediction, and Feature Analysis of Fine-Grained Air Quality},
+  author={Zhongang and Qi and Tianchun and Wang and Guojie and Song and Weisong and Hu and Xi and Li and },
+  journal={IEEE Transactions on Knowledge and Data Engineering},
+  volume={30},
+  number={12},
+  pages={2285-2297},
+  year={2018},
+}
+@inproceedings{2015Forecasting,
+  title={Forecasting Fine-Grained Air Quality Based on Big Data},
+  author={ Yu, Z.  and  Yi, X.  and  Ming, L.  and  Li, R.  and  Shan, Z. },
+  booktitle={the 21th ACM SIGKDD International Conference},
+  year={2015},
+}
 ```
