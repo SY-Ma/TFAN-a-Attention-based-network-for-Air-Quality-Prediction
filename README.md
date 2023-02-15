@@ -32,4 +32,4 @@ the Architecture of TFAN is as follow:
 ## Result
 - The comparison of pollutants concentration prediction precision of various model please see in paper
 - The general fit of TFAN on six pollutants which be part of the same sample from test dataset. is as follow:
-![Error!](images/line result 3.png)
+![Error!](images/line%20result%203.png)
