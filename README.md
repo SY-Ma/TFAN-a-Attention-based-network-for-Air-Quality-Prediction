@@ -28,6 +28,7 @@ the Architecture of TFAN is as follow:
 ## Code
 - [Code for data process](https://github.com/SY-Ma/TFAN-a-Temporal-Feature-correlations-Attention-based-Network-using-novel-data-fusion-technology-for/blob/main/data_process/data_processer.py)
 - [Code for network, train and test](https://github.com/SY-Ma/TFAN-a-Temporal-Feature-correlations-Attention-based-Network-using-novel-data-fusion-technology-for/blob/main/model/OURS_TF_score.py)
+- [Code for benchmarks](https://github.com/SY-Ma/TFAN-a-Temporal-Feature-correlations-Attention-based-Network-using-novel-data-fusion-technology-for/tree/main/model)
 
 ## Result
 - The comparison of pollutants concentration prediction precision of various model please see in paper
