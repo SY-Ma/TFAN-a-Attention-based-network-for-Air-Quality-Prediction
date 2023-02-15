@@ -12,5 +12,24 @@ Please cite as:\
 `under review`
 
 ## Introduction
-The development of society and progress of civilization has  brought convenience to people's life, but it has also brought a series of destruction to the natural environment, especially the air pollution problem. The harmful gases and particulates exposed to the air pose a serious threat to human health and the sustainable development of society. Air Pollutants include PM2.5, NO2, CO, etc. They are mainly from the burning of fossil fuels, power plants, and heavy industries. PM2.5 was the fifth-ranking mortality risk factor in 2015. Moreover, particulate matter and NO2 can cause irreversible respiratory disease, longer-term exposure of both also greatly increases the risk of death from cardiovascular disease and shortens life expectancy. Air quality prediction is of great significance for reducing air pollution degree, strengthening urban pollution prevention， and human health protection.
+The development of society and progress of civilization has  brought convenience to people's life, but it has also brought a series of destruction to the natural environment, especially the air pollution problem. The harmful gases and particulates exposed to the air pose a serious threat to human health and the sustainable development of society. Air Pollutants include PM2.5, NO2, CO, etc. They are mainly from the burning of fossil fuels, power plants, and heavy industries. PM2.5 was the fifth-ranking mortality risk factor in 2015. Moreover, particulate matter and NO2 can cause irreversible respiratory disease, longer-term exposure of both also greatly increases the risk of death from cardiovascular disease and shortens life expectancy. Air quality prediction is of great significance for reducing air pollution degree, strengthening urban pollution prevention， and human health protection.\
+However, forecasting air quality data is challenging for three reasons as follows:
+* The dynamic mutability of air quality data Due to the interaction of different
+* Sensor-level intra-characteristics and external factors
+* Complex temporal correlation and unstable spatial correlation
+The Example of geo-sensory multivariate time series and the illustration of dynamic interaction is as follow:
+![Error!](images/空气质量预测相关性_2.1.png)
 
+## Architecture
+Self-Attention is also used in TFAN to concentrate the timestamp dimension and the feature dimension separately. It can fully learn their respective data distributions. Moreover, we carry out the attention calculation of Temporal-Feature and Feature-Temporal after Self-Attention. \
+the Architecture of TFAN is as follow:
+![Error!](images/模型架构_4.png)
+
+## Code
+- [Code for data process](https://github.com/SY-Ma/TFAN-a-Temporal-Feature-correlations-Attention-based-Network-using-novel-data-fusion-technology-for/blob/main/data_process/data_processer.py)
+- [Code for network, train and test](https://github.com/SY-Ma/TFAN-a-Temporal-Feature-correlations-Attention-based-Network-using-novel-data-fusion-technology-for/blob/main/model/OURS_TF_score.py)
+
+## Result
+- The comparison of pollutants concentration prediction precision of various model please see in paper
+- The general fit of TFAN on six pollutants which be part of the same sample from test dataset. is as follow:
+![Error!](images/line result 3.png)
