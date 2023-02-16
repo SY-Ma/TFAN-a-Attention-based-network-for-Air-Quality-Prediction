@@ -20,6 +20,10 @@ However, forecasting air quality data is challenging for three reasons as follow
 The Example of geo-sensory multivariate time series and the illustration of dynamic interaction is as follow:
 ![Error!](images/空气质量预测相关性_2.1.png)
 
+## Data
+- [See homepage of data](https://www.microsoft.com/en-us/research/publication/forecasting-fine-grained-air-quality-based-on-big-data/?from=https://research.microsoft.com/apps/pubs/?id=246398&type=exact)
+- [Download raw data](https://www.microsoft.com/en-us/research/uploads/prod/2016/02/Data-1.zip)
+
 ## Architecture
 Self-Attention is also used in TFAN to concentrate the timestamp dimension and the feature dimension separately. It can fully learn their respective data distributions. Moreover, we carry out the attention calculation of Temporal-Feature and Feature-Temporal after Self-Attention. \
 the Architecture of TFAN is as follow:
