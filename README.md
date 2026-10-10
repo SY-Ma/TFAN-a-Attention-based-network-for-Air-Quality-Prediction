@@ -9,7 +9,21 @@
 >**Key Words**：Air Quality; Time Series Prediction; Attention Mechanism; Data Fusion
 
 Please cite as:\
-`under review`
+```@InProceedings{pmlr-v222-ma24a,
+  title = 	 {{TFAN}: {T}emporal-Feature correlations Attention-based Network for Urban Air Quality Prediction using Data Fusion technology},
+  author =       {Ma, Siyuan and Zhang, Fan and Hou, Wanli and Li, Yarui and Song, Wei},
+  booktitle = 	 {Proceedings of the 15th Asian Conference on Machine Learning},
+  pages = 	 {850--865},
+  year = 	 {2024},
+  editor = 	 {Yanıkoğlu, Berrin and Buntine, Wray},
+  volume = 	 {222},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {11--14 Nov},
+  publisher =    {PMLR},
+  pdf = 	 {https://proceedings.mlr.press/v222/ma24a/ma24a.pdf},
+  url = 	 {https://proceedings.mlr.press/v222/ma24a.html},
+}
+```
 
 ## Introduction
 The rapid development of society and cities has not only improved people's quality of life, but also caused a series of environmental issues, especially the air pollution problem. Air Pollutants such as PM2.5, NO<sub>2</sub>, CO, etc., are primarily from fossil fuel combustion, power generation, and heavy industrial production. PM2.5 was the fifth-ranking mortality risk factor in 2015. Additionally, prolonged exposure to particulate matter and NO<sub>2</sub> can result in irreversible respiratory diseases and significantly increase the risk of death from cardiovascular conditions, thereby reducing life expectancy. Air quality prediction plays a vital role in mitigating pollution, safeguarding urban environments, and protecting human health. \
