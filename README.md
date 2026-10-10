@@ -9,7 +9,7 @@
 >**Key Words**：Air Quality; Time Series Prediction; Attention Mechanism; Data Fusion
 
 Please cite as:\
-```@InProceedings{pmlr-v222-ma24a,
+```{@InProceedings{pmlr-v222-ma24a,
   title = 	 {{TFAN}: {T}emporal-Feature correlations Attention-based Network for Urban Air Quality Prediction using Data Fusion technology},
   author =       {Ma, Siyuan and Zhang, Fan and Hou, Wanli and Li, Yarui and Song, Wei},
   booktitle = 	 {Proceedings of the 15th Asian Conference on Machine Learning},
